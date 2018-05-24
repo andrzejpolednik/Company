@@ -7,13 +7,6 @@ public class WorkersDatabaseApp {
 	public static void main(String[] args) {
 		
 		
-		Workers wrk = new Workers();
-		System.out.println(wrk.info());
-		
-		
-
-		/*
-		
 		System.out.println("Enter how many workers to add");
 		Scanner in = new Scanner(System.in);
 		int numOfWorkers = in.nextInt();
@@ -23,14 +16,11 @@ public class WorkersDatabaseApp {
 		
 		for(int n=0; n <numOfWorkers; n++) {
 			workers[n] = new Workers();
-			Workers wrk = new Workers();
+			
 		}
-		
-		for(int n=0; n<numOfWorkers; n++) {
+		for(int n=0; n <numOfWorkers; n++) {
 			System.out.println(workers[n].info());
 		}
-		
-		*/
 	}
 		
 }

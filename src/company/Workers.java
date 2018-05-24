@@ -105,27 +105,21 @@ public class Workers {
 			switch(departmentChoice) {
 			
 			case 1 : quality = "Quality";
-			firstDepartmentLetter = quality.charAt(0);
 			return quality;
 			
 			case 2 : production = "Production";
-			firstDepartmentLetter = production.charAt(0);
 			return production;
 			
 			case 3 : logistics = "Logistics";
-			firstDepartmentLetter = logistics.charAt(0);
 			return logistics;
 			
 			case 4 : maintenance = "Maintenance";
-			firstDepartmentLetter = maintenance.charAt(0);
 			return maintenance;
 			
 			case 5 : planning = "Planning";
-			firstDepartmentLetter = planning.charAt(0);
 			return planning;
 			
 			case 6 : complaints = "Complaints";
-			firstDepartmentLetter = complaints.charAt(0);
 			return complaints;
 			}
 			return "Unidentified department";
@@ -166,7 +160,8 @@ public class Workers {
 
 		private String setID() {
 			int randomNumber = (int) (Math.random() * Math.pow(10, 4));
-			id = firstDepartmentLetter + "" + randomNumber;
+			id = department.substring(0, 1) + randomNumber;
+			//firstDepartmentLetter + "" + 
 			return id;
 		}
 
