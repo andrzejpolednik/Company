@@ -16,6 +16,10 @@ public class Worker {
     public void setLastName(String name) {
         this.lastName = name;
     }
+    
+    public void setDepartment(int department) {
+        this.department = department;
+    }
 
     public void generateUserCredentials() {
         email = this.generateEmail();

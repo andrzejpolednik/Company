@@ -1,9 +1,9 @@
 package company;
 
 import java.util.Scanner;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.List;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class WorkersDatabaseApp {
 
@@ -12,13 +12,17 @@ public class WorkersDatabaseApp {
     public static final int OPTION_REMOVE = 3;
     public static final int OPTION_EXIT = 4;
 
-    private static List<Worker> workers;
+    private static ArrayList<Worker> workers;
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int option = 0;
+        
+        Departments.init(); 
+        workers = new ArrayList<Worker>();
 
         while (option != OPTION_LIST) {
+            System.out.println("\r\n");
             System.out.println("1. List workers");
             System.out.println("2. Add a new worker");
             System.out.println("3. Remove a worker");
@@ -35,9 +39,8 @@ public class WorkersDatabaseApp {
 
                 case WorkersDatabaseApp.OPTION_ADD:
                     Worker employee = new Worker();
-                    readWorkerData(employee);
-
-                    //workers.add(employee);
+                    employee = readWorkerData(employee);
+                    WorkersDatabaseApp.workers.add(employee);
                     break;
 
                 case WorkersDatabaseApp.OPTION_REMOVE:
@@ -57,7 +60,7 @@ public class WorkersDatabaseApp {
 
     }
 
-    private static void readWorkerData(Worker worker) {
+    private static Worker readWorkerData(Worker worker) {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Please fill new worker data. ID, password and email will be assigned automatically.");
@@ -68,9 +71,17 @@ public class WorkersDatabaseApp {
         System.out.print("Last name: ");
         worker.setLastName(in.nextLine());
 
-//        Map departments = Departments.getAll();
-//        System.out.print("Department ");
-        //worker.setFirstName(in.nextLine())
-        //worker.generateUserCredentials();
+        HashMap departments = Departments.getAll();
+        for (Object key : departments.keySet()) {
+            Object value = departments.get(key);
+            System.out.println(key + ". "+ value);
+        }
+        
+        System.out.print("Department: ");
+        worker.setDepartment(in.nextInt());
+        
+        worker.generateUserCredentials();
+        
+        return worker;
     }
 }
