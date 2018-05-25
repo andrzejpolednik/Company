@@ -3,7 +3,7 @@ package company;
 import java.util.Scanner;
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.ListIterator;
 
 public class WorkersDatabaseApp {
 
@@ -17,8 +17,8 @@ public class WorkersDatabaseApp {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int option = 0;
-        
-        Departments.init(); 
+
+        Departments.init();
         workers = new ArrayList<Worker>();
 
         while (option != OPTION_LIST) {
@@ -34,7 +34,7 @@ public class WorkersDatabaseApp {
 
             switch (option) {
                 case WorkersDatabaseApp.OPTION_LIST:
-
+                    printWorkers(WorkersDatabaseApp.workers);
                     break;
 
                 case WorkersDatabaseApp.OPTION_ADD:
@@ -74,14 +74,28 @@ public class WorkersDatabaseApp {
         HashMap departments = Departments.getAll();
         for (Object key : departments.keySet()) {
             Object value = departments.get(key);
-            System.out.println(key + ". "+ value);
+            System.out.println(key + ". " + value);
         }
-        
+
         System.out.print("Department: ");
         worker.setDepartment(in.nextInt());
-        
+
         worker.generateUserCredentials();
-        
+
         return worker;
+    }
+
+    private static void printWorkers(ArrayList workers) {
+        ListIterator<Worker> litr = workers.listIterator();
+        while (litr.hasNext()) {
+            Worker worker = litr.next();
+            HashMap workerDetails = worker.getFullInfo();
+            System.out.println("========= Worker no " + workerDetails.get("id"));
+            System.out.println(workerDetails.get("firstName") + " " + workerDetails.get("lastName"));
+            System.out.println("Contact: " + workerDetails.get("email"));
+            System.out.println("Department: " + workerDetails.get("department"));
+            System.out.println();
+            //litr.set(element + "+");
+        }
     }
 }

@@ -1,5 +1,7 @@
 package company;
 
+import java.util.HashMap;
+
 public class Worker {
     private String id;
     private String firstName;
@@ -26,6 +28,18 @@ public class Worker {
         password = this.generatePassword(10);
         id = this.setID();
     }
+    
+    public HashMap getFullInfo() {
+        HashMap info = new HashMap();
+        info.put("id", this.id);
+        info.put("firstName", this.firstName);
+        info.put("lastName", this.lastName);
+        info.put("department", Departments.get(this.department));
+        info.put("email", this.email);
+        
+        return info;
+    }
+    
     // Generate the email
     private String generateEmail() {
         String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@" + Departments.get(department).toLowerCase() + "MAN.com";
