@@ -19,6 +19,8 @@ public class WorkersDatabaseApp {
         int option = 0;
 
         Departments.init();
+        Courses.init();
+        Position.init();
         workers = new ArrayList<Worker>();
 
         while (option != OPTION_LIST) {
@@ -44,8 +46,9 @@ public class WorkersDatabaseApp {
                     break;
 
                 case WorkersDatabaseApp.OPTION_REMOVE:
-
-                    break;
+                	
+                	removeWorkers();
+                	break;
 
                 case WorkersDatabaseApp.OPTION_EXIT:
                     System.exit(0);
@@ -71,29 +74,62 @@ public class WorkersDatabaseApp {
         System.out.print("Last name: ");
         worker.setLastName(in.nextLine());
 
+        System.out.println("Choose the position");
+        HashMap position = Position.getAll();
+        for (Object key : position.keySet()) {
+            Object value = position.get(key);
+            System.out.println(key + ". " + value);
+        }
+        
+        System.out.print("Position: ");
+        worker.setPosition(in.nextInt());
+        
+        System.out.println("Choose the department");
         HashMap departments = Departments.getAll();
         for (Object key : departments.keySet()) {
             Object value = departments.get(key);
             System.out.println(key + ". " + value);
         }
-
+        
         System.out.print("Department: ");
         worker.setDepartment(in.nextInt());
-
+        
+        System.out.println("Choose the course");
+        HashMap courses = Courses.getAll();
+        for (Object key : courses.keySet()) {
+        	Object value = courses.get(key);
+        	System.out.println(key + ". "+ value);
+        }	
+        
+        System.out.println("Course: ");
+        worker.setCourse(in.nextInt());
+        
+        
         worker.generateUserCredentials();
 
         return worker;
+    }  
+    
+    private static void removeWorkers() {
+    	Scanner in = new Scanner(System.in);
+    	System.out.println("Choose which worker would you like to remove \nFirst worker starts with 0 ");
+    	int removeWorker = in.nextInt();
+    	WorkersDatabaseApp.workers.remove(removeWorker);
     }
-
+    
+    
+    
     private static void printWorkers(ArrayList workers) {
         ListIterator<Worker> litr = workers.listIterator();
         while (litr.hasNext()) {
             Worker worker = litr.next();
             HashMap workerDetails = worker.getFullInfo();
-            System.out.println("========= Worker no " + workerDetails.get("id"));
+            System.out.println("Worker no " + workerDetails.get("id"));
             System.out.println(workerDetails.get("firstName") + " " + workerDetails.get("lastName"));
             System.out.println("Contact: " + workerDetails.get("email"));
+            System.out.println("Position: " + workerDetails.get("position"));
             System.out.println("Department: " + workerDetails.get("department"));
+            System.out.println("Course: " + workerDetails.get("course"));
             System.out.println();
             //litr.set(element + "+");
         }
